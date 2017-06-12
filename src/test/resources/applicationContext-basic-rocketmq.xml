@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mvc="http://www.springframework.org/schema/mvc"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">
+
+    <bean id="rocketMQTool" class="com.yx.rocketmq.RocketMQTool" init-method="init">
+        <property name="producerGroup" value="www_java_rpc_com"/>
+        <property name="namesrvAddr" value="172.16.150.178:9876;172.16.150.143:9876"/>
+    </bean>
+
+    <bean id="metaQSubsribeGroup" class="com.yx.rocketmq.RocketMQBroadCastingSubscribeGroup" init-method="init">
+        <property name="rocketSubscribeList">
+            <list>
+                <ref bean="rocketSubscribeA"/>
+                <ref bean="rocketSubscribeB"/>
+            </list>
+        </property>
+    </bean>
+
+
+    <bean id="rocketSubscribeA" class="com.yx.rocketmq.RocketSubscribe" init-method="init">
+        <property name="groupId" value="test-metaq-groupid"/>
+        <property name="topic" value="lion_test"/>
+        <property name="tags" value="A"/>
+        <property name="rocketMQProcessList">
+            <list>
+                <ref bean="testMetaQProcessA"/>
+                <ref bean="testMetaQProcessB"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="rocketSubscribeB" class="com.yx.rocketmq.RocketSubscribe" init-method="init">
+        <property name="groupId" value="test-metaq-groupid"/>
+        <property name="topic" value="lion_test"/>
+        <property name="tags" value="B"/>
+        <property name="rocketMQProcessList">
+            <list>
+                <ref bean="testMetaQProcessA"/>
+                <ref bean="testMetaQProcessB"/>
+            </list>
+        </property>
+    </bean>
+
+
+    <bean id="testMetaQProcessA" class="com.yx.rocketmq.demo.TestRocketMQProcessA"/>
+    <bean id="testMetaQProcessB" class="com.yx.rocketmq.demo.TestRocketMQProcessB"/>
+
+</beans>

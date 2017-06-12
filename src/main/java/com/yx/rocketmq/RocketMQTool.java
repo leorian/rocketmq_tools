@@ -60,7 +60,7 @@ public class RocketMQTool {
         return RocketMQTool.clientConfig;
     }
 
-    public static void setClientConfig(ClientConfig clientConfig) {
+    public void setClientConfig(ClientConfig clientConfig) {
         RocketMQTool.clientConfig = clientConfig;
     }
 
@@ -83,7 +83,7 @@ public class RocketMQTool {
         }
     }
 
-    public static void setNamesrvAddr(String namesrvAddr) {
+    public void setNamesrvAddr(String namesrvAddr) {
         RocketMQTool.namesrvAddr = namesrvAddr;
     }
 
@@ -91,7 +91,7 @@ public class RocketMQTool {
         this.producerGroup = producerGroup;
     }
 
-    public static void setProducer(DefaultMQProducer producer) {
+    public void setProducer(DefaultMQProducer producer) {
         RocketMQTool.producer = producer;
     }
 
@@ -100,7 +100,7 @@ public class RocketMQTool {
 
     }
 
-    private static final SendResult sendMessage(RocketMQMessage rocketMQMessage) {
+    public static final SendResult sendMessage(RocketMQMessage rocketMQMessage) {
         SendResult sendResult = null;
         try {
             Message message = new Message(rocketMQMessage.getTopic(), rocketMQMessage.getTags(),
