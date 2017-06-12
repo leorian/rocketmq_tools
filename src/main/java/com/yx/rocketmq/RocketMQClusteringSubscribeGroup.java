@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by xiezg@317hu.com on 2017/6/12 0012.
  */
-public class RocketMQClusteringSubscribeGroup extends RocketMQAbstractSubscribeGroup{
+public class RocketMQClusteringSubscribeGroup extends RocketMQAbstractSubscribeGroup {
     final static Logger logger = Logger.getLogger(RocketMQClusteringSubscribeGroup.class);
 
 
@@ -36,13 +36,13 @@ public class RocketMQClusteringSubscribeGroup extends RocketMQAbstractSubscribeG
             consumer.setInstanceName(RocketMQTool.getClientConfig().getInstanceName());
 
             try {
-                consumer.subscribe(subscribe.getTopic(), "*");
+                consumer.subscribe(subscribe.getTopic(), subscribe.getTags());
                 consumer.registerMessageListener(new MessageListenerConcurrently() {
 
                     @Override
                     public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
                                                                     ConsumeConcurrentlyContext context) {
-                      return RocketMQClusteringSubscribeGroup.super.consumeMessage(subscribe, msgs, context);
+                        return RocketMQClusteringSubscribeGroup.super.consumeMessage(subscribe, msgs, context);
                     }
                 });
 

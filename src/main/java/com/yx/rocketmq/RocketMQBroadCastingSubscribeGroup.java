@@ -36,7 +36,7 @@ public class RocketMQBroadCastingSubscribeGroup extends RocketMQAbstractSubscrib
             consumer.setInstanceName(RocketMQTool.getClientConfig().getInstanceName());
 
             try {
-                consumer.subscribe(subscribe.getTopic(), "*");
+                consumer.subscribe(subscribe.getTopic(), subscribe.getTags());
                 consumer.registerMessageListener(new MessageListenerConcurrently() {
 
                     @Override
