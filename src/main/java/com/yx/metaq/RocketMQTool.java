@@ -78,24 +78,26 @@ public class RocketMQTool {
 
     public static final <T> SendResult sendMessage(String topic, String msgType, T t) {
 
-        return sendMessage(new MyMessage(new RocketMQMsgType(topic, msgType), t));
+        return sendMessage(new RocketMQMessage(new RocketMQMsgType(topic, msgType), t));
 
     }
 
-    private static final SendResult sendMessage(MyMessage myMessage) {
+    private static final SendResult sendMessage(RocketMQMessage rocketMQMessage) {
         SendResult sendResult = null;
         try {
-            Message message = new Message(myMessage.getTopic(), myMessage.getMessageType(),
-                    HessianSerializerTool.newParseObjectToBytes(myMessage));
+            Message message = new Message(rocketMQMessage.getTopic(), rocketMQMessage.getMessageType(),
+                    HessianSerializerTool.newParseObjectToBytes(rocketMQMessage));
             sendResult = RocketMQTool.producer.send(message);
         } catch (Throwable e) {
             logger.error(e.getMessage(), e);
         } finally {
             if (sendResult != null && sendResult.getSendStatus() != null && sendResult.getSendStatus().
                     equals(SendStatus.SEND_OK)) {
-                logger.warn(RocketMQTool.class.getSimpleName() + ".sendMessage success:" + JSON.toJSONString(myMessage));
+                logger.warn(RocketMQTool.class.getSimpleName() + ".sendMessage success:"
+                        + JSON.toJSONString(rocketMQMessage));
             } else {
-                logger.error(RocketMQTool.class.getSimpleName() + ".sendMessage error:" + JSON.toJSONString(myMessage));
+                logger.error(RocketMQTool.class.getSimpleName() + ".sendMessage error:"
+                        + JSON.toJSONString(rocketMQMessage));
             }
         }
 
