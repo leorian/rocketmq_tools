@@ -17,32 +17,50 @@ import org.springframework.util.StringUtils;
  */
 public class RocketMQTool {
     final static Logger logger = Logger.getLogger(RocketMQTool.class);
-    /**
-     * 注册中心地址
-     */
-    private String namesrvAddr;
+
 
     /**
      * 分组
      */
     private String producerGroup;
+    /**
+     * 注册中心地址
+     */
+    private static String namesrvAddr;
 
     /**
      * 生产者
      */
     private static DefaultMQProducer producer;
 
+    private static ClientConfig clientConfig;
+
     public void init() {
-        final ClientConfig clientConfig = new ClientConfig();
-        if (StringUtils.isEmpty(clientConfig.getNamesrvAddr())) {
-            clientConfig.setNamesrvAddr(this.namesrvAddr);
+        initDefaultMQProducer(getClientConfig(), producerGroup);
+    }
+
+    public static ClientConfig getClientConfig() {
+
+        if (RocketMQTool.clientConfig == null) {
+            synchronized (RocketMQTool.class) {
+                if (RocketMQTool.clientConfig == null) {
+                    RocketMQTool.clientConfig = new ClientConfig();
+                    if (StringUtils.isEmpty(RocketMQTool.clientConfig.getNamesrvAddr())) {
+                        RocketMQTool.clientConfig.setNamesrvAddr(RocketMQTool.namesrvAddr);
+                    }
+
+                    if (StringUtils.isEmpty(RocketMQTool.clientConfig.getNamesrvAddr())) {
+                        throw new MetaQException("NameSrv_Addr_CONNECT_IS_NULL", "NameSrv_Addr 地址是空!");
+                    }
+                }
+            }
         }
 
-        if (StringUtils.isEmpty(clientConfig.getNamesrvAddr())) {
-            throw new MetaQException("NameSrv_Addr_CONNECT_IS_NULL", "NameSrv_Addr 地址是空!");
-        }
+        return RocketMQTool.clientConfig;
+    }
 
-        initDefaultMQProducer(clientConfig, producerGroup);
+    public static void setClientConfig(ClientConfig clientConfig) {
+        RocketMQTool.clientConfig = clientConfig;
     }
 
     private static void initDefaultMQProducer(ClientConfig clientConfig, String producerGroup) {
@@ -64,8 +82,8 @@ public class RocketMQTool {
         }
     }
 
-    public void setNamesrvAddr(String namesrvAddr) {
-        this.namesrvAddr = namesrvAddr;
+    public static void setNamesrvAddr(String namesrvAddr) {
+        RocketMQTool.namesrvAddr = namesrvAddr;
     }
 
     public void setProducerGroup(String producerGroup) {
@@ -77,7 +95,6 @@ public class RocketMQTool {
     }
 
     public static final <T> SendResult sendMessage(String topic, String msgType, T t) {
-
         return sendMessage(new RocketMQMessage(new RocketMQMsgType(topic, msgType), t));
 
     }
