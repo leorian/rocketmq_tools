@@ -1,4 +1,4 @@
-package com.yx.metaq.exception;
+package com.yx.rocketmq.exception;
 
 /**
  * Created by xiezg@317hu.com on 2017/6/12 0012.

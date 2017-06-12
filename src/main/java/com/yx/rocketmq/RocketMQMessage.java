@@ -1,5 +1,7 @@
-package com.yx.metaq;
+package com.yx.rocketmq;
 
+
+import com.yx.metaq.MsgType;
 
 /**
  * Created with IntelliJ IDEA.

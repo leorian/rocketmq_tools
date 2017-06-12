@@ -1,4 +1,4 @@
-package com.yx.metaq;
+package com.yx.rocketmq;
 
 import com.alibaba.fastjson.JSON;
 import com.yx.metaq.exception.MetaQException;
