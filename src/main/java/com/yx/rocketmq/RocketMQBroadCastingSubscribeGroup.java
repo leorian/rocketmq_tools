@@ -1,6 +1,5 @@
 package com.yx.rocketmq;
 
-import com.yx.serializer.util.HessianSerializerTool;
 import org.apache.log4j.Logger;
 import org.apache.rocketmq.client.consumer.DefaultMQPushConsumer;
 import org.apache.rocketmq.client.consumer.listener.ConsumeConcurrentlyContext;
@@ -9,7 +8,6 @@ import org.apache.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
 import org.apache.rocketmq.common.protocol.heartbeat.MessageModel;
-import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
