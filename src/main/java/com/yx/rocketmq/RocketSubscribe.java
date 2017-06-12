@@ -36,7 +36,7 @@ public class RocketSubscribe {
                 ||
                 StringUtil.isBlank(topic) || StringUtil.isBlank(tags)) {
             throw new MetaQException("SUBSCRIBE_GROUP_OR_TOPIC_IS_NULL_OR_TAGS_IS_NULL",
-                    "订阅者groupId 或者topic是空 或者 tags是空!");
+                    "订阅者groupId 或者 topic是空 或者 tags是空!");
         }
 
 
