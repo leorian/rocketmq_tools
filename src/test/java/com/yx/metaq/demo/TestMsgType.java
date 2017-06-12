@@ -1,7 +1,6 @@
 package com.yx.metaq.demo;
 
-import com.taobao.metamorphosis.Message;
-import com.yx.metaq.MsgType;
+import com.yx.common.MsgType;
 
 /**
  * Created with IntelliJ IDEA.

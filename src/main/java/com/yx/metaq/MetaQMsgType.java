@@ -1,5 +1,6 @@
 package com.yx.metaq;
 
+import com.yx.common.MsgType;
 import com.yx.metaq.exception.MetaQException;
 import com.yx.serializer.util.StringUtil;
 

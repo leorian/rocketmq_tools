@@ -1,4 +1,4 @@
-package com.yx.metaq;
+package com.yx.common;
 
 /**
  * Created with IntelliJ IDEA.

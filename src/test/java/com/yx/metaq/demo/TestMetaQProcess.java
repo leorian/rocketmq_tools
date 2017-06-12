@@ -2,8 +2,8 @@ package com.yx.metaq.demo;
 
 import com.alibaba.fastjson.JSON;
 import com.yx.metaq.MetaQProcess;
-import com.yx.metaq.MetaStatus;
-import com.yx.metaq.MsgType;
+import com.yx.common.MetaStatus;
+import com.yx.common.MsgType;
 
 /**
  * Created with IntelliJ IDEA.

@@ -1,6 +1,9 @@
 package com.yx.metaq;
 
 
+import com.yx.common.MetaStatus;
+import com.yx.common.MsgType;
+
 /**
  * Created with IntelliJ IDEA.
  * User: renyueliang
