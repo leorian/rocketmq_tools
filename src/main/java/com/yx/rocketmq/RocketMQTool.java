@@ -23,6 +23,7 @@ public class RocketMQTool {
      * 分组
      */
     private String producerGroup;
+
     /**
      * 注册中心地址
      */
