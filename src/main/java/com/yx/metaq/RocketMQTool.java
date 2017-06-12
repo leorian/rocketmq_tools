@@ -1,10 +1,15 @@
 package com.yx.metaq;
 
+import com.alibaba.fastjson.JSON;
 import com.yx.metaq.exception.MetaQException;
+import com.yx.serializer.util.HessianSerializerTool;
 import org.apache.log4j.Logger;
 import org.apache.rocketmq.client.ClientConfig;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
+import org.apache.rocketmq.client.producer.SendResult;
+import org.apache.rocketmq.client.producer.SendStatus;
 import org.apache.rocketmq.common.MixAll;
+import org.apache.rocketmq.common.message.Message;
 import org.springframework.util.StringUtils;
 
 /**
@@ -69,5 +74,31 @@ public class RocketMQTool {
 
     public static void setProducer(DefaultMQProducer producer) {
         RocketMQTool.producer = producer;
+    }
+
+    public static final <T> SendResult sendMessage(String topic, String msgType, T t) {
+
+        return sendMessage(new MyMessage(new RocketMQMsgType(topic, msgType), t));
+
+    }
+
+    private static final SendResult sendMessage(MyMessage myMessage) {
+        SendResult sendResult = null;
+        try {
+            Message message = new Message(myMessage.getTopic(), myMessage.getMessageType(),
+                    HessianSerializerTool.newParseObjectToBytes(myMessage));
+            sendResult = RocketMQTool.producer.send(message);
+        } catch (Throwable e) {
+            logger.error(e.getMessage(), e);
+        } finally {
+            if (sendResult != null && sendResult.getSendStatus() != null && sendResult.getSendStatus().
+                    equals(SendStatus.SEND_OK)) {
+                logger.warn(RocketMQTool.class.getSimpleName() + ".sendMessage success:" + JSON.toJSONString(myMessage));
+            } else {
+                logger.error(RocketMQTool.class.getSimpleName() + ".sendMessage error:" + JSON.toJSONString(myMessage));
+            }
+        }
+
+        return sendResult;
     }
 }
