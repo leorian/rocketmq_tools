@@ -1,11 +1,7 @@
 package com.yx.rocketmq.demo;
 
-import com.yx.metaq.MetaQTool;
-import com.yx.metaq.MyMessage;
 import com.yx.metaq.demo.TestMessageDTO1;
 import com.yx.metaq.demo.TestMessgeDTO;
-import com.yx.metaq.demo.TestMsgType;
-import com.yx.metaq.demo.TestMsgType1;
 import com.yx.rocketmq.RocketMQMessage;
 import com.yx.rocketmq.RocketMQTool;
 import org.junit.Test;

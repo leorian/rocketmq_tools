@@ -2,8 +2,6 @@ package com.yx.rocketmq.demo;
 
 import com.alibaba.fastjson.JSON;
 import com.yx.common.MetaStatus;
-import com.yx.common.MsgType;
-import com.yx.metaq.MetaQProcess;
 import com.yx.metaq.demo.TestMessageDTO1;
 import com.yx.rocketmq.RocketMQAbstractMsgType;
 import com.yx.rocketmq.RocketMQProcess;

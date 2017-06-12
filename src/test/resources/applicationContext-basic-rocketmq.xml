@@ -28,7 +28,7 @@
 
 
     <bean id="rocketSubscribeA" class="com.yx.rocketmq.RocketSubscribe" init-method="init">
-        <property name="groupId" value="test-metaq-groupid"/>
+        <property name="groupId" value="test-metaq-groupid-1"/>
         <property name="topic" value="lion_test"/>
         <property name="tags" value="A"/>
         <property name="rocketMQProcessList">
@@ -40,7 +40,7 @@
     </bean>
 
     <bean id="rocketSubscribeB" class="com.yx.rocketmq.RocketSubscribe" init-method="init">
-        <property name="groupId" value="test-metaq-groupid"/>
+        <property name="groupId" value="test-metaq-groupid-2"/>
         <property name="topic" value="lion_test"/>
         <property name="tags" value="B"/>
         <property name="rocketMQProcessList">

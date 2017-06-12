@@ -1,6 +1,5 @@
 package com.yx.rocketmq.demo;
 
-import com.yx.common.MsgType;
 import com.yx.rocketmq.RocketMQAbstractMsgType;
 
 /**
