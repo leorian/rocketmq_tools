@@ -23,6 +23,8 @@ public class RocketSubscribe {
 
     private String topic;
 
+    private String tags;
+
     private Long timestamp;
 
     private List<RocketMQProcess> rocketMQProcessList;
@@ -32,8 +34,9 @@ public class RocketSubscribe {
 
         if (StringUtil.isBlank(groupId)
                 ||
-                StringUtil.isBlank(topic)) {
-            throw new MetaQException("SUBSCRIBE_GROUP_OR_TOPIC_IS_NULL", "订阅者groupId 或者topic是空!");
+                StringUtil.isBlank(topic) || StringUtil.isBlank(tags)) {
+            throw new MetaQException("SUBSCRIBE_GROUP_OR_TOPIC_IS_NULL_OR_TAGS_IS_NULL",
+                    "订阅者groupId 或者topic是空 或者 tags是空!");
         }
 
 
@@ -83,6 +86,14 @@ public class RocketSubscribe {
 
     public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
     }
 
     public void setRocketMQProcessList(List<RocketMQProcess> rocketMQProcessList) {
