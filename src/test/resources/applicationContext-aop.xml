@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+    <bean id="serviceTestOne" class="com.yx.aop.test.ServiceTestOne"/>
+    <bean id="serviceTestTwo" class="com.yx.aop.test.ServiceTestTwo"/>
+    <bean id="serviceTestThree" class="com.yx.aop.test.ServiceTestThree"/>
+
+
+    <!-- 全部服务监控 -->
+    <!-- 这个是服务调用时长AOP，注意beanNames有两种，一种是服务service调用入口，一种是DAO层，其余中间的需要自己打点 -->
+
+    <bean  class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator">
+        <property name="proxyTargetClass">
+            <value>true</value>
+        </property>
+    </bean>
+
+    <!--<bean  class="org.springframework.aop.framework.autoproxy.BeanNameAutoProxyCreator">-->
+        <!--<property name="beanNames">-->
+            <!--<value>-->
+                <!--serviceTestOne,-->
+                <!--serviceTestTwo,-->
+                <!--serviceTestThree-->
+            <!--</value>-->
+        <!--</property>-->
+        <!--<property name="interceptorNames">-->
+            <!--<list>-->
+                <!--<value>userServiceCallAdvisor</value>-->
+            <!--</list>-->
+        <!--</property>-->
+        <!--<property name="proxyTargetClass">-->
+            <!--<value>true</value>-->
+        <!--</property>-->
+    <!--</bean>-->
+
+    <bean id="advisor2" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="pattern">
+            <value>com.yx.aop.test.ServiceTestThree.*</value>  <!-- 业务实现方法名匹配 -->
+        </property>
+        <property name="advice">
+            <ref bean="aopCallBeforeEdvice"/>
+        </property>
+    </bean>
+
+    <bean id="aopCallBeforeEdvice" class="com.yx.aop.test.AopCallBeforeEdvice"/>
+
+    <bean id="afterAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="pattern">
+            <value>com.yx.aop.test1.*</value>  <!-- 业务实现方法名匹配 -->
+        </property>
+        <property name="advice">
+            <ref bean="aopCallAfterEdvice"/>
+        </property>
+    </bean>
+
+    <bean id="aopCallAfterEdvice" class="com.yx.aop.test.AopCallAfterEdvice"/>
+
+    <bean id="userServiceCallAdvisor" class="org.springframework.aop.support.RegexpMethodPointcutAdvisor">
+        <property name="patterns">
+            <list>
+                <value>com.yx.aop.test.*</value>
+            </list>
+        </property>
+        <property name="advice">
+            <ref bean="aopCallAdvice" />
+        </property>
+    </bean>
+    <bean id="aopCallAdvice" class="com.yx.aop.test.AopCallAdvice"/>
+
+    <!--<bean id="interceptorTest" class="com.yx.aop.test.InterceptorTest" init-method="init"/>-->
+    <!--<aop:config proxy-target-class="true">-->
+        <!--<aop:aspect id="testAspect" ref="interceptorTest">-->
+            <!--<aop:pointcut id="testPointcut" expression="execution(* com.yx.aop.test.ServiceTestOne.*(..))"  />-->
+            <!--<aop:before pointcut-ref="testPointcut" method="startInvoke"/>-->
+            <!--<aop:after  pointcut-ref="testPointcut" method="endInvoke" />-->
+            <!--<aop:after-returning method="returnInvoke" arg-names="joinPoint,retValue" returning="retValue" pointcut-ref="testPointcut"/>-->
+            <!--<aop:after-throwing  pointcut-ref="testPointcut" method="throwingInvoke" throwing="e"/>-->
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
+
+</beans>
