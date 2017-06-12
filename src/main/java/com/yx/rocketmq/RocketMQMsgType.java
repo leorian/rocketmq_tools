@@ -21,7 +21,7 @@ public class RocketMQMsgType extends RocketMQAbstractMsgType {
         }
 
         setTopic(topic);
-
+        setTags(tags);
         setMessageType(messageType);
     }
 
