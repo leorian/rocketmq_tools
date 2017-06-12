@@ -1,6 +1,5 @@
 package com.yx.rocketmq;
 
-import com.yx.common.MsgType;
 import com.yx.metaq.exception.MetaQException;
 import com.yx.serializer.util.StringUtil;
 import org.springframework.util.StringUtils;
