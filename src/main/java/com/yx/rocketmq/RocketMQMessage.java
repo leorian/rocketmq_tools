@@ -14,7 +14,7 @@ public class RocketMQMessage<T> implements java.io.Serializable {
 
     static final long serialVersionUID = -1L;
 
-    private MsgType msgType;
+    private RocketMQAbstractMsgType rocketMQAbstractMsgType;
 
     private T data;
 
@@ -22,9 +22,9 @@ public class RocketMQMessage<T> implements java.io.Serializable {
     }
 
 
-    public RocketMQMessage(MsgType msgType, T  t) {
-        this.data=t;
-        this.msgType=msgType;
+    public RocketMQMessage(RocketMQAbstractMsgType rocketMQAbstractMsgType, T t) {
+        this.data = t;
+        this.rocketMQAbstractMsgType = rocketMQAbstractMsgType;
     }
 
     public T getData() {
@@ -32,12 +32,15 @@ public class RocketMQMessage<T> implements java.io.Serializable {
     }
 
     public String getMessageType() {
-        return msgType.getMessageType();
+        return rocketMQAbstractMsgType.getMessageType();
+    }
+
+    public String getTags() {
+        return rocketMQAbstractMsgType.getTags();
     }
 
 
-
     public String getTopic() {
-        return msgType.getTopic();
+        return rocketMQAbstractMsgType.getTopic();
     }
 }

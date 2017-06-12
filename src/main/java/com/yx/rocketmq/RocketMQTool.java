@@ -94,15 +94,15 @@ public class RocketMQTool {
         RocketMQTool.producer = producer;
     }
 
-    public static final <T> SendResult sendMessage(String topic, String msgType, T t) {
-        return sendMessage(new RocketMQMessage(new RocketMQMsgType(topic, msgType), t));
+    public static final <T> SendResult sendMessage(String topic, String tags, String msgType, T t) {
+        return sendMessage(new RocketMQMessage(new RocketMQMsgType(topic, tags, msgType), t));
 
     }
 
     private static final SendResult sendMessage(RocketMQMessage rocketMQMessage) {
         SendResult sendResult = null;
         try {
-            Message message = new Message(rocketMQMessage.getTopic(), rocketMQMessage.getMessageType(),
+            Message message = new Message(rocketMQMessage.getTopic(), rocketMQMessage.getTags(),
                     HessianSerializerTool.newParseObjectToBytes(rocketMQMessage));
             sendResult = RocketMQTool.producer.send(message);
         } catch (Throwable e) {

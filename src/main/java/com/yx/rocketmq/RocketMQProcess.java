@@ -13,7 +13,7 @@ import com.yx.common.MsgType;
  */
 public abstract class RocketMQProcess<T> {
 
-    public abstract MsgType getMsgType();
+    public abstract RocketMQAbstractMsgType getMsgType();
 
 
     public abstract void excute(T t,MetaStatus metaStatus);
