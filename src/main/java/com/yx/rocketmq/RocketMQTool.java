@@ -97,7 +97,10 @@ public class RocketMQTool {
 
     public static final <T> SendResult sendMessage(String topic, String tags, String msgType, T t) {
         return sendMessage(new RocketMQMessage(new RocketMQMsgType(topic, tags, msgType), t));
+    }
 
+    public static final <T> SendResult sendMessage(RocketMQAbstractMsgType rocketMQAbstractMsgType, T t) {
+        return sendMessage(new RocketMQMessage(rocketMQAbstractMsgType, t));
     }
 
     public static final SendResult sendMessage(RocketMQMessage rocketMQMessage) {
