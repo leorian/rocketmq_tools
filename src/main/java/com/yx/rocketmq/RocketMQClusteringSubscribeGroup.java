@@ -20,6 +20,8 @@ public class RocketMQClusteringSubscribeGroup extends RocketMQAbstractSubscribeG
 
     private List<RocketSubscribe> rocketSubscribeList;
 
+    private RocketMQAbstractSubscribeGroup _this = this;
+
     public void init() {
 
 
@@ -42,12 +44,12 @@ public class RocketMQClusteringSubscribeGroup extends RocketMQAbstractSubscribeG
                     @Override
                     public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> msgs,
                                                                     ConsumeConcurrentlyContext context) {
-                        return RocketMQClusteringSubscribeGroup.super.consumeMessage(subscribe, msgs, context);
+                        return _this.consumeMessage(subscribe, msgs, context);
                     }
                 });
 
                 consumer.start();
-                System.out.printf("Consumer Started.%n");
+                System.out.printf("Clustering Consumer Started.%n");
             } catch (Throwable e) {
                 logger.error(e.getMessage(), e);
 

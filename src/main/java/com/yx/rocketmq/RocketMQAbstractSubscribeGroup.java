@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by xiezg@317hu.com on 2017/6/12 0012.
  */
-public class RocketMQAbstractSubscribeGroup {
+public abstract class RocketMQAbstractSubscribeGroup {
     private static final Logger logger = Logger.getLogger(RocketMQAbstractSubscribeGroup.class);
 
     ConsumeConcurrentlyStatus consumeMessage(RocketSubscribe subscribe, List<MessageExt> msgs,
