@@ -14,7 +14,7 @@
 
     <bean id="rocketMQTool" class="com.yx.rocketmq.RocketMQTool" init-method="init">
         <property name="producerGroup" value="www_java_rpc_com"/>
-        <property name="namesrvAddr" value="172.16.150.178:9876;172.16.150.143:9876"/>
+        <!--<property name="namesrvAddr" value="172.16.150.178:9876;172.16.150.143:9876"/>-->
     </bean>
 
     <bean id="metaQSubsribeGroup" class="com.yx.rocketmq.RocketMQBroadCastingSubscribeGroup" init-method="init">

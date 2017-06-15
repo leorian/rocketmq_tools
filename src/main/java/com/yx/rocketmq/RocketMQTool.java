@@ -1,6 +1,7 @@
 package com.yx.rocketmq;
 
 import com.alibaba.fastjson.JSON;
+import com.yx.common.HttpUtil;
 import com.yx.metaq.exception.MetaQException;
 import com.yx.serializer.util.HessianSerializerTool;
 import org.apache.log4j.Logger;
@@ -48,6 +49,10 @@ public class RocketMQTool {
                     RocketMQTool.clientConfig = new ClientConfig();
                     if (StringUtils.isEmpty(RocketMQTool.clientConfig.getNamesrvAddr())) {
                         RocketMQTool.clientConfig.setNamesrvAddr(RocketMQTool.namesrvAddr);
+                    }
+
+                    if (StringUtils.isEmpty(RocketMQTool.clientConfig.getNamesrvAddr())) {
+                        RocketMQTool.clientConfig.setNamesrvAddr(HttpUtil.loadNameSrvList());
                     }
 
                     if (StringUtils.isEmpty(RocketMQTool.clientConfig.getNamesrvAddr())) {
